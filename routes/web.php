@@ -17,6 +17,12 @@ Route::get('/invoice', function () {
 
 Route::get('/proceed/{invoice_number}', [PaymentController::class, 'proceed']);
 
+Route::get('/pay/{invoice_number}', [PaymentController::class, 'pay']);
+
+Route::get('payment/success', [PaymentController::class, 'success'])->name('stripe_success');
+
+Route::get('payment/cancel', [PaymentController::class, 'cancel'])->name('stripe_cancel');
+
 
 
 Route::middleware('auth')->group(function () {

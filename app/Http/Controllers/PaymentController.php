@@ -101,20 +101,17 @@ class PaymentController extends Controller
         return view('proceed',compact('payment'));
     }
 
-    public function payment($invoice_number)
+    public function pay($invoice_number)
     {
         $payment = Payment::with('customer','gateway','brand')->where('invoice_number',$invoice_number)->first();
     
         // Calculate the total amount including tax
-
         $totalAmount = $payment->price + $payment->tax;
-
 
         $expirationTime = now()->addDays(7);
 
         // Set the secret key for Stripe API
         Stripe::setApiKey($payment->gateway->key2);
-    
         // Create a Stripe Checkout session
         $response = Session::create([
             'line_items' => [
@@ -122,8 +119,8 @@ class PaymentController extends Controller
                     'price_data' => [
                         'currency' => $payment->currency,
                         'product_data' => [
-                            'name' => $payment->package,
-                            'images' => $payment->logo_path,
+                            'name' => $payment->package_name,
+                            'images' => [asset($payment->brand->logo_path)],
                             'description' => $payment->description,
                         ],
                         'unit_amount' => $totalAmount * 100,
@@ -131,15 +128,15 @@ class PaymentController extends Controller
                     'quantity' => 1,
                 ],
             ],
-            'customer_email' =>  $payment->customer_email,
+            'customer_email' =>  $payment->customer->email,
             'metadata' => [
                 'expires_at' => $expirationTime->toDateTimeString(),
                 'invoice_number' => $payment->invoice_number,
-                'customer_name' => $payment->customer_name,
-                'package_description' => $payment->package_description,
+                'customer_name' => $payment->customer->first_name.' '.$payment->customer->last_name ,
+                'package_description' => $payment->description,
             ],
             'mode' => 'payment',
-            'success_url' => route('stripe_success')."?session_id={CHECKOUT_SESSION_ID}",
+            'success_url' => route('stripe_success') . "?session_id={CHECKOUT_SESSION_ID}&invoice_number=" . $payment->invoice_number,
             'cancel_url' => route('stripe_cancel'),
         ]);
 
@@ -148,6 +145,20 @@ class PaymentController extends Controller
         $payment->update(['session_id' => $response->id]);
 
         return redirect()->away($response->url);
+    }
+
+      public function success(Request $request)
+    {
+        $payment = Payment::with('gateway')->where('invoice_number',$request->invoice_number)->first();
+
+        Stripe::setApiKey($payment->gateway->key2);
+
+        if($payment) {
+            $payment->status = 'paid'; // or some other status
+            $payment->update();
+        }
+
+        return redirect()->away('https://alruya.link');
     }
 }
 

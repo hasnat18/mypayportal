@@ -65,7 +65,10 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="currency">Currency</label>
-                                        <input type="text" class="form-control" id="currency" name="currency" placeholder="Currency">
+                                        <select class="form-control" id="currency" name="currency">
+                                            <option value="usd" selected>USD</option>
+                                            <option value="gbp">GBP</option>
+                                        </select>
                                         <span class="text-danger error-message" id="currency_error"></span>
                                     </div>
                                     <div class="form-group col-md-6">
