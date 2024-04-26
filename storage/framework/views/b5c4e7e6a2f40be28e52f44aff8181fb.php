@@ -1,7 +1,4 @@
-
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div id="content" class="main-content">
     <div class="container">
         <div class="container">
@@ -39,7 +36,7 @@
                                         <span class="text-danger error-message" id="key2_error"></span>
                                     </div>
                                 </div>
-                                <button type="button" id="CreateGetwaySubmitBtn" class="btn btn-primary mt-3">Save Gateway</button>
+                                <button type="button" id="submitBtn" class="btn btn-primary mt-3">Save Gateway</button>
                             </form>
                         </div>
                     </div>
@@ -48,8 +45,45 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
-<script src="{{env('ASSET_URL')}}/custom/custom.js"></script>
-@endsection
+<?php $__env->startSection('script'); ?>
+<script>
+    $(document).ready(function() {
+        // Set CSRF token for all AJAX requests
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $('#submitBtn').click(function() {
+            $.ajax({
+                type: 'POST',
+                url: '/gateways',
+                data: $('#createGatewayForm').serialize(),
+                success: function(response) {
+                    // Clear form fields
+                    $('#createGatewayForm')[0].reset();
+
+                    // Show Snackbar notification
+                    Snackbar.show({
+                        text: 'Gateway created successfully.',
+                        duration: 5000, // 5 seconds
+                    });
+                },
+                error: function(xhr, status, error) {
+                    var err = JSON.parse(xhr.responseText);
+                    console.log('Error:', err);
+
+                    // Display validation errors
+                    $.each(err.errors, function(key, value) {
+                        $('#' + key + '_error').text(value);
+                    });
+                }
+            });
+        });
+    });
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Hasnat Khan\Desktop\mypayportal\mypayportal\resources\views/gateway/create.blade.php ENDPATH**/ ?>

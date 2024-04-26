@@ -1,7 +1,4 @@
-
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div id="content" class="main-content">
     <div class="layout-px-spacing">
         <div class="row layout-spacing layout-top-spacing" id="cancel-row">
@@ -12,7 +9,7 @@
                         <div class="col-xl-8 col-lg-7 col-md-7 col-sm-5 text-sm-right text-center layout-spacing align-self-center">
                             <div class="d-flex justify-content-sm-end justify-content-center">
                                 <div class="switch align-self-center">
-                                    <a href="{{url('/payments/create')}}" class="btn" style="background-color: #191e3a;color:white;">Create</a>
+                                    <a href="<?php echo e(url('/payments/create')); ?>" class="btn" style="background-color: #191e3a;color:white;">Create</a>
                                 </div>
                             </div>
                         </div>
@@ -43,34 +40,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($payments as $key => $payment)
+                                <?php $__currentLoopData = $payments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $payment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $payment->customer->first_name }} {{ $payment->customer->last_name }}</td>
-                                    <td>{{ $payment->user->name }}</td>
-                                    <td>{{ $payment->gateway->name }}</td>
-                                    <td>{{ $payment->brand->name }}</td>
-                                    <td>{{ $payment->invoice_number }}</td>
-                                    <td>{{ $payment->description }}</td>
-                                    <td>{{ $payment->currency }}</td>
-                                    <td>{{ $payment->tax }}</td>
-                                    <td>{{ $payment->remaining }}</td>
-                                    <td><span class="badge {{$payment->status == 'unpaid' ? 'bg-danger' : 'bg-success'}}">{{ $payment->status }}</span></td>
+                                    <td><?php echo e($key + 1); ?></td>
+                                    <td><?php echo e($payment->customer->first_name); ?> <?php echo e($payment->customer->last_name); ?></td>
+                                    <td><?php echo e($payment->user->name); ?></td>
+                                    <td><?php echo e($payment->gateway->name); ?></td>
+                                    <td><?php echo e($payment->brand->name); ?></td>
+                                    <td><?php echo e($payment->invoice_number); ?></td>
+                                    <td><?php echo e($payment->description); ?></td>
+                                    <td><?php echo e($payment->currency); ?></td>
+                                    <td><?php echo e($payment->tax); ?></td>
+                                    <td><?php echo e($payment->remaining); ?></td>
+                                    <td><span class="badge <?php echo e($payment->status == 'unpaid' ? 'bg-danger' : 'bg-success'); ?>"><?php echo e($payment->status); ?></span></td>
                                     <td>
                                         <!-- Edit Button -->
-                                        <a href="/invoice/{{$payment->invoice_number}}" class="btn btn-warning">Print</a>
-                                        <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-primary">Edit</a>
-                                        <a href="{{ route('payments.edit', $payment->id) }}" class="btn btn-primary">Edit</a>
+                                        <a href="/invoice/<?php echo e($payment->invoice_number); ?>" class="btn btn-warning">Print</a>
+                                        <a href="<?php echo e(route('payments.edit', $payment->id)); ?>" class="btn btn-primary">Edit</a>
+                                        <a href="<?php echo e(route('payments.edit', $payment->id)); ?>" class="btn btn-primary">Edit</a>
                                         
                                         <!-- Delete Button -->
-                                        <form action="{{ route('payments.destroy', $payment->id) }}" method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
+                                        <form action="<?php echo e(route('payments.destroy', $payment->id)); ?>" method="POST" style="display: inline;">
+                                            <?php echo csrf_field(); ?>
+                                            <?php echo method_field('DELETE'); ?>
                                             <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this payment?')">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -99,10 +96,11 @@
 
         </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Hasnat Khan\Desktop\mypayportal\mypayportal\resources\views/payment/index.blade.php ENDPATH**/ ?>

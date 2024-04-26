@@ -147,7 +147,7 @@ class PaymentController extends Controller
         return redirect()->away($response->url);
     }
 
-      public function success(Request $request)
+    public function success(Request $request)
     {
         $payment = Payment::with('gateway')->where('invoice_number',$request->invoice_number)->first();
 
@@ -159,6 +159,14 @@ class PaymentController extends Controller
         }
 
         return redirect()->away('https://alruya.link');
+    }
+
+    public function invoice($invoice)
+    {
+        $payment = Payment::with('gateway','customer','brand')->where('invoice_number',$invoice)->first();
+
+        return view('invoice',compact('payment'));
+
     }
 }
 

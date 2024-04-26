@@ -1,7 +1,4 @@
-
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div id="content" class="main-content">
     <div class="layout-px-spacing">
         <div class="row invoice layout-top-spacing">
@@ -62,11 +59,11 @@
                                             </div>
                                             <div class="col-sm-6 col-12 align-self-center text-sm-right">
                                                 <div class="company-info">
-                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg> --}}
-                                                    <img src="{{ asset('storage/'.$payment->brand->logo_path) }}" alt="Logo">
+                                                    
+                                                    <img src="<?php echo e(asset('storage/'.$payment->brand->logo_path)); ?>" alt="Logo">
 
 
-                                                    {{-- <h5 class="inv-brand-name">CORK</h5> --}}
+                                                    
                                                 </div>
                                             </div>
                                             
@@ -78,18 +75,18 @@
                                                 <p class="inv-to">Invoice To</p>
                                             </div>
                                             <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : {{$payment->brand->name}}</p>
+                                                <p class="inv-detail-title">From : <?php echo e($payment->brand->name); ?></p>
                                             </div>
                                             
                                             <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">{{$payment->customer->first_name}} {{$payment->customer->last_name}}</p>
-                                                <p class="inv-email-address">{{$payment->customer->email}}</p>
-                                                <p class="inv-street-addr">{{$payment->customer->address_line_1}}</p>
+                                                <p class="inv-customer-name"><?php echo e($payment->customer->first_name); ?> <?php echo e($payment->customer->last_name); ?></p>
+                                                <p class="inv-email-address"><?php echo e($payment->customer->email); ?></p>
+                                                <p class="inv-street-addr"><?php echo e($payment->customer->address_line_1); ?></p>
                                             </div>
                                             <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#{{$payment->invoice_number}}</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">{{$payment->created_at->format('d-m-y')}}</span></p>
-                                                {{-- <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p> --}}
+                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#<?php echo e($payment->invoice_number); ?></span></p>
+                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date"><?php echo e($payment->created_at->format('d-m-y')); ?></span></p>
+                                                
                                             </div>
                                         </div>
 
@@ -107,13 +104,16 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr>
-                                                                <td>{{$payment->package_name}}</td>
-                                                                <td class="text-right">{{$payment->description}}</td>
+                                                                <td><?php echo e($payment->package_name); ?></td>
+                                                                <td class="text-right"><?php echo e($payment->description); ?></td>
                                                                 <td class="text-right">1</td>
                                                                 <td class="text-right">
-                                                                    {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                    {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                    {{$payment->price}}
+                                                                    <?php echo e($payment->currency == 'usd' ? '$' : ''); ?>
+
+                                                                    <?php echo e($payment->currency == 'gbp' ? '£' : ''); ?>
+
+                                                                    <?php echo e($payment->price); ?>
+
                                                                 </td>
                                                             </tr>
                                                         </tbody>
@@ -125,23 +125,7 @@
                                         <div class="row mt-4">
                                             <div class="col-sm-5 col-12 order-sm-0 order-1">
                                                 <div class="inv--payment-info">
-                                                    {{-- <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div> --}}
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-sm-7 col-12 order-sm-1 order-0">
@@ -152,9 +136,12 @@
                                                         </div>
                                                         <div class="col-sm-4 col-5">
                                                             <p class="">
-                                                                {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                {{$payment->price}}
+                                                                <?php echo e($payment->currency == 'usd' ? '$' : ''); ?>
+
+                                                                <?php echo e($payment->currency == 'gbp' ? '£' : ''); ?>
+
+                                                                <?php echo e($payment->price); ?>
+
                                                             </p>
                                                         </div>
                                                         <div class="col-sm-8 col-7">
@@ -162,25 +149,27 @@
                                                         </div>
                                                         <div class="col-sm-4 col-5">
                                                             <p class="">
-                                                                {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                {{$payment->tax}}
+                                                                <?php echo e($payment->currency == 'usd' ? '$' : ''); ?>
+
+                                                                <?php echo e($payment->currency == 'gbp' ? '£' : ''); ?>
+
+                                                                <?php echo e($payment->tax); ?>
+
                                                             </p>
                                                         </div>
-                                                        {{-- <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div> --}}
-                                                        {{-- <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div> --}}
+                                                        
+                                                        
                                                         <div class="col-sm-8 col-7 grand-total-title">
                                                             <h4 class="">Grand Total : </h4>
                                                         </div>
                                                         <div class="col-sm-4 col-5 grand-total-amount">
                                                             <h4 class="">
-                                                                {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                {{$payment->price + $payment->tax}}
+                                                                <?php echo e($payment->currency == 'usd' ? '$' : ''); ?>
+
+                                                                <?php echo e($payment->currency == 'gbp' ? '£' : ''); ?>
+
+                                                                <?php echo e($payment->price + $payment->tax); ?>
+
                                                             </h4>
                                                         </div>
                                                     </div>
@@ -2114,4 +2103,5 @@
             </div>
         </div>
         </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\Users\Hasnat Khan\Desktop\mypayportal\mypayportal\resources\views/invoice.blade.php ENDPATH**/ ?>

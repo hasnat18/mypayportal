@@ -6,13 +6,16 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\GatewayController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DashboardController;
 
-Route::get('/', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');;
 
-Route::get('/invoice', function () {
-    return view('invoice');
+
+Route::get('/invoice/{invoice_number}', [PaymentController::class, 'invoice']);
+
+
+Route::get('/settings', function () {
+    return view('setting');
 });
 
 Route::get('/proceed/{invoice_number}', [PaymentController::class, 'proceed']);
