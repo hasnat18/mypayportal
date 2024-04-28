@@ -58,19 +58,19 @@
                     <span class="navbar-brand-name">PAYPORTAL</span></a>
             </div>
 
-            {{-- <ul class="navbar-item flex-row mr-auto">
-                <li class="nav-item align-self-center search-animated">
+            <ul class="navbar-item flex-row mr-auto">
+                {{-- <li class="nav-item align-self-center search-animated">
                     <form class="form-inline search-full form-inline search" role="search">
                         <div class="search-bar">
                             <input type="text" class="form-control search-form-control  ml-lg-auto" placeholder="Search...">
                         </div>
                     </form>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search toggle-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </li>
+                </li> --}}
             </ul>
 
             <ul class="navbar-item flex-row nav-dropdowns">
-                <li class="nav-item dropdown language-dropdown more-dropdown">
+                {{-- <li class="nav-item dropdown language-dropdown more-dropdown">
                     <div class="dropdown custom-dropdown-icon">
                         <a class="dropdown-toggle btn" href="#" role="button" id="customDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{env('ASSET_URL')}}/assets/img/ca.png" class="flag-width" alt="flag"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
 
@@ -204,21 +204,21 @@
                             </div>
                         </div>
                     </div>
-                </li>
+                </li> --}}
 
                 <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="media">
                             <img src="{{env('ASSET_URL')}}/assets/img/90x90.jpg" class="img-fluid" alt="admin-profile">
                             <div class="media-body align-self-center">
-                                <h6><span>Hi,</span> Alan</h6>
+                                <h6> {{ auth()->user()->name }}</h6>
                             </div>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </a>
                     <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="user-profile-dropdown">
                         <div class="">
-                            <div class="dropdown-item">
+                            {{-- <div class="dropdown-item">
                                 <a class="" href="user_profile.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> My Profile</a>
                             </div>
                             <div class="dropdown-item">
@@ -226,15 +226,29 @@
                             </div>
                             <div class="dropdown-item">
                                 <a class="" href="auth_lockscreen.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg> Lock Screen</a>
+                            </div> --}}
+                            <!-- Add an ID to the dropdown item for targeting with jQuery -->
+
+                            <div class="dropdown-item" id="logout">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                <a class="" href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                        <polyline points="16 17 21 12 16 7"></polyline>
+                                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                                    </svg> 
+                                    Sign Out
+                                </a>
+                                </form>
                             </div>
-                            <div class="dropdown-item">
-                                <a class="" href="auth_login.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Sign Out</a>
-                            </div>
+
+
                         </div>
                     </div>
 
                 </li>
-            </ul> --}}
+            </ul>
         </header>
     </div>
     <!--  END NAVBAR  -->
@@ -348,6 +362,20 @@
             drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
 	    } );
     </script>
+    <!-- logout -->
+    <script>
+        $(document).ready(function() {
+            // Attach click event to the logout dropdown item
+            $('#logout').click(function(event) {
+                // Prevent default link behavior
+                event.preventDefault();
+                
+                // Submit the form for logout
+                $('#logout-form').submit();
+            });
+        });
+    </script>
+
     @yield('script')
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->

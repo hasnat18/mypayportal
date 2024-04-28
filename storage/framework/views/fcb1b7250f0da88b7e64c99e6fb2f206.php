@@ -58,7 +58,48 @@
                     <span class="navbar-brand-name">PAYPORTAL</span></a>
             </div>
 
-            
+            <ul class="navbar-item flex-row mr-auto">
+                
+            </ul>
+
+            <ul class="navbar-item flex-row nav-dropdowns">
+                
+
+                <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
+                    <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="media">
+                            <img src="<?php echo e(env('ASSET_URL')); ?>/assets/img/90x90.jpg" class="img-fluid" alt="admin-profile">
+                            <div class="media-body align-self-center">
+                                <h6> <?php echo e(auth()->user()->name); ?></h6>
+                            </div>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </a>
+                    <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="user-profile-dropdown">
+                        <div class="">
+                            
+                            <!-- Add an ID to the dropdown item for targeting with jQuery -->
+
+                            <div class="dropdown-item" id="logout">
+                                <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST">
+                                    <?php echo csrf_field(); ?>
+                                <a class="" href="">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                        <polyline points="16 17 21 12 16 7"></polyline>
+                                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                                    </svg> 
+                                    Sign Out
+                                </a>
+                                </form>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
         </header>
     </div>
     <!--  END NAVBAR  -->
@@ -172,6 +213,20 @@
             drawCallback: function () { $('.dataTables_paginate > .pagination').addClass(' pagination-style-13 pagination-bordered mb-5'); }
 	    } );
     </script>
+    <!-- logout -->
+    <script>
+        $(document).ready(function() {
+            // Attach click event to the logout dropdown item
+            $('#logout').click(function(event) {
+                // Prevent default link behavior
+                event.preventDefault();
+                
+                // Submit the form for logout
+                $('#logout-form').submit();
+            });
+        });
+    </script>
+
     <?php echo $__env->yieldContent('script'); ?>
 
     <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
