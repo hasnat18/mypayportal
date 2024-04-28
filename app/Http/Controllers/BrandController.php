@@ -25,8 +25,6 @@ class BrandController extends Controller
         // Upload the logo file to the public/storage/logo directory
         if ($request->hasFile('logo_path')) {
             $logoPath = $request->file('logo_path')->store('logo', 'public');
-            // 'logo' is the directory within 'public/storage' where the file will be stored
-            // 'public' is the disk configured in filesystems.php
         } else {
             $logoPath = null; // Set to null if no file is uploaded
         }
@@ -34,6 +32,7 @@ class BrandController extends Controller
         // Create the brand with the UID included
         $brand = Brand::create([
             'name' => $request->input('name'),
+            'redirect_url' => request()->redirect_url, // Save the path to the uploaded file
             'logo_path' => $logoPath, // Save the path to the uploaded file
             // Add other fields as needed
         ]);
@@ -77,13 +76,13 @@ class BrandController extends Controller
             }
             // Upload the new logo file
             $logoPath = $request->file('logo_path')->store('logo', 'public');
-            // Update the logo_path field with the new path
-            $brand->update(['logo_path' => $logoPath]);
         }
     
         // Update the brand with the new data
         $brand->update([
             'name' => $request->input('name'),
+            'logo_path' => $logoPath, // Save the path to the uploaded file
+            'redirect_url' => request()->redirect_url, // Save the path to the uploaded file
         ]);
     
         return response()->json(['message' => 'Brand updated successfully', 'brand' => $brand], 200);

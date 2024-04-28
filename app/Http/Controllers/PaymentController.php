@@ -104,7 +104,6 @@ class PaymentController extends Controller
     public function pay($invoice_number)
     {
         $payment = Payment::with('customer','gateway','brand')->where('invoice_number',$invoice_number)->first();
-    
         // Calculate the total amount including tax
         $totalAmount = $payment->price + $payment->tax;
 
@@ -149,7 +148,7 @@ class PaymentController extends Controller
 
     public function success(Request $request)
     {
-        $payment = Payment::with('gateway')->where('invoice_number',$request->invoice_number)->first();
+        $payment = Payment::with('gateway','brand')->where('invoice_number',$request->invoice_number)->first();
 
         Stripe::setApiKey($payment->gateway->key2);
 
@@ -158,7 +157,9 @@ class PaymentController extends Controller
             $payment->update();
         }
 
-        return redirect()->away('https://alruya.link');
+        $redirect_url = $payment->brand->redirect_url;
+
+        return redirect()->away($redirect_url);
     }
 
     public function invoice($invoice)

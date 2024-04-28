@@ -25,6 +25,11 @@
                                         <span class="text-danger error-message" id="name_error"></span>
                                     </div>
                                 </div>
+                                <div class="form-group col-md-12">
+                                    <label for="name">Redirect Url</label>
+                                    <input type="text" class="form-control" id="redirect_url" name="nredirect_urlame" placeholder="Redirect Url">
+                                    <span class="text-danger error-message" id="redirect_url_error"></span>
+                                </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
                                         <label for="logo_path">Logo</label>

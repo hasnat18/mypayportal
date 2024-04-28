@@ -118,6 +118,13 @@
                                 </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
+                                        <label for="name">Redirect Url</label>
+                                        <input type="text" class="form-control" id="redirect_url" name="redirect_url" placeholder="Redirect Url">
+                                        <span class="text-danger error-message" id="redirect_url_error"></span>
+                                    </div>
+                                </div>
+                                <div class="form-row mb-4">
+                                    <div class="form-group col-md-12">
                                         <label for="logo_path">Logo</label>
                                         <input type="file" class="form-control" id="logo_path" name="logo_path">
                                         <span class="text-danger error-message" id="logo_path_error"></span>
@@ -148,21 +155,21 @@
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
                                         <label for="name">Name</label>
-                                        <input type="text" class="form-control" id="name" name="name" placeholder="First Name">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
                                         <span class="text-danger error-message" id="name_error"></span>
                                     </div>
                                 </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
                                         <label for="key1">KEY 1</label>
-                                        <input type="text" class="form-control" id="key1" name="key1" placeholder="First Name">
+                                        <input type="text" class="form-control" id="key1" name="key1" placeholder="KEY 1">
                                         <span class="text-danger error-message" id="key1_error"></span>
                                     </div>
                                 </div>
                                 <div class="form-row mb-4">
                                     <div class="form-group col-md-12">
                                         <label for="key2">KEY 2</label>
-                                        <input type="text" class="form-control" id="key2" name="key2" placeholder="First Name">
+                                        <input type="text" class="form-control" id="key2" name="key2" placeholder="KEY 2">
                                         <span class="text-danger error-message" id="key2_error"></span>
                                     </div>
                                 </div>

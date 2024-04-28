@@ -31,8 +31,8 @@
                                     <div class="form-group col-md-6">
                                         <label for="gateway_id">Gateway</label>
                                         <select class="form-control" id="gateway_id" name="gateway_id">
-                                            @foreach($brands as $brand)
-                                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                            @foreach($gateways as $gateway)
+                                                <option value="{{ $gateway->id }}">{{ $gateway->name }}</option>
                                             @endforeach
                                         </select>
                                         <span class="text-danger error-message" id="gateway_id"></span>
@@ -124,7 +124,7 @@
 
                     // Show Snackbar notification
                     Snackbar.show({
-                        text: 'Gateway created successfully.',
+                        text: 'Payment Link created successfully.',
                         duration: 5000, // 5 seconds
                     });
 

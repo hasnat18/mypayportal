@@ -69,21 +69,37 @@
                                 </div>
                                 <div class="info-detail-sub mb-5" style="display: flex;justify-content: space-between;">
                                     <h6>Subtotal</h6>
-                                    <h6>${{$payment->price}}</h6>
+                                    <h6>
+                                        {{$payment->currency == 'usd' ? '$' : ''}}
+                                        {{$payment->currency == 'gbp' ? '£' : ''}}
+                                        {{$payment->price}}
+                                    </h6>
                                 </div>
                                 <div class="info-detail-sub mb-5" style="display: flex;justify-content: space-between;">
                                     <h6>Tax</h6>
-                                    <h6>${{$payment->tax}}</h6>
+                                    <h6>
+                                        {{$payment->currency == 'usd' ? '$' : ''}}
+                                        {{$payment->currency == 'gbp' ? '£' : ''}}
+                                        {{$payment->tax}}
+                                    </h6>
                                 </div>
                                 <div class="info-detail-sub mb-5" style="display: flex;justify-content: space-between;">
                                     <h6>Total</h6>
                                     @if(isset($payment->tax) && isset($payment->price))
-                                        <h6>${{ $payment->tax + $payment->price }}</h6>
+                                        <h6>
+                                            {{$payment->currency == 'usd' ? '$' : ''}}
+                                            {{$payment->currency == 'gbp' ? '£' : ''}}
+                                            {{ $payment->tax + $payment->price }}
+                                        </h6>
                                     @endif
                                 </div>
                                 <div class="info-detail-sub mb-5" style="display: flex;justify-content: space-between;">
                                     <h6>Remaining</h6>
-                                    <h6>${{ $payment->remaining }}</h6>
+                                    <h6>
+                                        {{$payment->currency == 'usd' ? '$' : ''}}
+                                        {{$payment->currency == 'gbp' ? '£' : ''}}
+                                        {{ $payment->remaining }}
+                                    </h6>
                                 </div>
                             </div>
                         </div>

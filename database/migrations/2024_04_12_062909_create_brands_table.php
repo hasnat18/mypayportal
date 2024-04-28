@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('name')->nullable(false);
             $table->text('logo_path')->nullable(false);
+            $table->text('redirect_url')->nullable(false);
             $table->timestamps();
         });
     }

@@ -12,10 +12,12 @@ class Brand extends Model
     protected $fillable = [
         'name',
         'logo_path',
+        'redirect_url',
     ];
 
     public static $rules = [
         'name' => 'required',
         'logo_path' => 'required',
+        'redirect_url' => 'required',
     ];
 }

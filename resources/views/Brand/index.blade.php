@@ -31,6 +31,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
+                                    <th>Redirect Url</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -38,6 +39,7 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $brand->name }}</td>
+                                <td>{{ $brand->redirect_url }}</td>
                                 <td>
                                     <!-- Edit Button -->
                                     <a href="{{ route('brands.edit', $brand->id) }}" class="btn btn-primary">Edit</a>
