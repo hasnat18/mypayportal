@@ -12,20 +12,23 @@ class DashboardController extends Controller
     public function index() 
     {
         $query = Payment::with('gateway','brand');
+
+        $start_date = request()->start_date ?? null;
+        $end_date = request()->end_date ?? null;
+        $status = request()->status ?? null;
     
         if (Auth::check()) {
-            if (request()->has('start_date') || request()->has('end_date')) {
-                $start_date = request()->start_date;
-                $end_date = request()->end_date;
-    
-                // Extract the date part from 'updated_at' and filter
-                $query->whereDate('updated_at', '>=', $start_date)
-                    ->whereDate('updated_at', '<=', $end_date);
+            if (isset($start_date)) {
+                $query->whereDate('updated_at', '>=', $start_date);
             }
     
-            // Check for the 'status' field
-            if (request()->has('status')) {
-                $status = request()->status;
+            // Filter by end date
+            if (isset($end_date)) {
+                $query->whereDate('updated_at', '<=', $end_date);
+            }
+    
+            // Filter by status
+            if (isset($status)) {
                 $query->where('status', $status);
             }
     

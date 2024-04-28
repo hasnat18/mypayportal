@@ -58,7 +58,7 @@
                     <span class="navbar-brand-name">PAYPORTAL</span></a>
             </div>
 
-            <ul class="navbar-item flex-row mr-auto">
+            {{-- <ul class="navbar-item flex-row mr-auto">
                 <li class="nav-item align-self-center search-animated">
                     <form class="form-inline search-full form-inline search" role="search">
                         <div class="search-bar">
@@ -234,7 +234,7 @@
                     </div>
 
                 </li>
-            </ul>
+            </ul> --}}
         </header>
     </div>
     <!--  END NAVBAR  -->
