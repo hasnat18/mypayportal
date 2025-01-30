@@ -15,16 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('uid');
             $table->string('first_name');
-            $table->string('last_name');
-            $table->date('date_of_birth');
-            $table->string('email')->unique();
-            $table->string('phone_number');
-            $table->string('address_line_1');
+            $table->string('last_name')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('address_line_1')->nullable();
             $table->string('address_line_2')->nullable();
-            $table->string('city');
-            $table->string('state_province');
-            $table->string('postal_code');
-            $table->string('country');
+            $table->string('city')->nullable();
+            $table->string('state_province')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('country')->nullable();
             $table->timestamps();
         });
     }

@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'type',
     ];
 
     /**
@@ -44,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public static $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|min:8',
+    ];
 }

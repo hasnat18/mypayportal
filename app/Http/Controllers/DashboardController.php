@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Payment;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 
 class DashboardController extends Controller
 {
     public function index() 
     {
-        $query = Payment::with('gateway','brand');
 
+        if (auth()->user()->is_admin) {
+            $query = Payment::with('gateway', 'brand');
+        }else{
+            $query = Payment::with('gateway','brand')->where('user_id',Auth::user()->id);
+        }
         $start_date = request()->start_date ?? null;
         $end_date = request()->end_date ?? null;
         $status = request()->status ?? null;
@@ -68,6 +72,7 @@ class DashboardController extends Controller
                 'gbpUnpaidAmount'
             ));
         }
+
     }
     
     

@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 use App\Models\Gateway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class GatewayController extends Controller
 {
     public function index()
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $gateways = Gateway::all();
 
         return view('gateway.index',['gateways' => $gateways]);
@@ -16,6 +20,9 @@ class GatewayController extends Controller
 
     public function store(Request $request)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $validator = Validator::make($request->all(), Gateway::$rules);
 
         if ($validator->fails()) {
@@ -34,10 +41,16 @@ class GatewayController extends Controller
 
 
     public function create(){
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         return view('gateway.create');
     }
 
     public function edit($id){
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $gateway = Gateway::find($id);
 
         return view('gateway.edit',['gateway' => $gateway]);
@@ -45,11 +58,17 @@ class GatewayController extends Controller
 
     public function show(Gateway $gateway)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         return $gateway;
     }
 
     public function update(Request $request, Gateway $gateway)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $validator = Validator::make($request->all(), Gateway::$rules);
 
         if ($validator->fails()) {
@@ -67,6 +86,9 @@ class GatewayController extends Controller
 
     public function destroy(Gateway $gateway)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $gateway->delete();
         return back()->with('message','Gateway deleted successfully');
     }

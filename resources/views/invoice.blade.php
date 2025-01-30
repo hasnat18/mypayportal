@@ -1,2117 +1,618 @@
+<!DOCTYPE html>
+<html>
 
-@extends('layouts.app')
+<head>
+    <title>Payment Successful - Invoice Details</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-@section('content')
-<div id="content" class="main-content">
-    <div class="layout-px-spacing">
-        <div class="row invoice layout-top-spacing">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                <div class="app-hamburger-container">
-                    <div class="hamburger"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu chat-menu d-xl-none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></div>
+    <style>
+        @import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap);
+
+        *,
+        ::after,
+        ::before {
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        html {
+            line-height: 1.15;
+            -webkit-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0
+        }
+
+        a {
+            background-color: transparent
+        }
+
+        b {
+            font-weight: bolder
+        }
+
+        img {
+            border-style: none
+        }
+
+        button {
+            font-family: inherit;
+            font-size: 100%;
+            line-height: 1.15;
+            margin: 0
+        }
+
+        button {
+            overflow: visible
+        }
+
+        button {
+            text-transform: none
+        }
+
+        button {
+            -webkit-appearance: button
+        }
+
+        button::-moz-focus-inner {
+            border-style: none;
+            padding: 0
+        }
+
+        button:-moz-focusring {
+            outline: 1px dotted ButtonText
+        }
+
+        ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            font: inherit
+        }
+
+        body,
+        html {
+            color: #777;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5em;
+            overflow-x: hidden;
+            background-color: #f5f7ff
+        }
+
+        p,
+        div {
+            margin-top: 0;
+            line-height: 1.5em
+        }
+
+        p {
+            margin-bottom: 15px
+        }
+
+        img {
+            border: 0;
+            max-width: 50%;
+            height: auto;
+            vertical-align: middle
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease
+        }
+
+        a:hover {
+            color: #2ad19d
+        }
+
+        button {
+            color: inherit;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: inherit
+        }
+
+        table {
+            width: 100%;
+            caption-side: bottom;
+            border-collapse: collapse
+        }
+
+        th {
+            text-align: left
+        }
+
+        td {
+            border-top: 1px solid #eaeaea
+        }
+
+        td,
+        th {
+            padding: 10px 15px;
+            line-height: 1.55em
+        }
+
+        b {
+            font-weight: bold
+        }
+
+        .cs-f16 {
+            font-size: 16px
+        }
+
+        .cs-semi_bold {
+            font-weight: 600
+        }
+
+        .cs-bold {
+            font-weight: 700
+        }
+
+        .cs-m0 {
+            margin: 0
+        }
+
+        .cs-mb0 {
+            margin-bottom: 0
+        }
+
+        .cs-mb5 {
+            margin-bottom: 5px
+        }
+
+        .cs-mb10 {
+            margin-bottom: 10px
+        }
+
+        .cs-mb25 {
+            margin-bottom: 25px
+        }
+
+        .cs-width_1 {
+            width: 8.33333333%
+        }
+
+        .cs-width_2 {
+            width: 16.66666667%
+        }
+
+        .cs-width_3 {
+            width: 25%
+        }
+
+        .cs-width_4 {
+            width: 33.33333333%
+        }
+
+        .cs-primary_color {
+            color: #111
+        }
+
+        .cs-focus_bg {
+            background: #f6f6f6
+        }
+
+        .cs-container {
+            max-width: 880px;
+            padding: 30px 15px;
+            margin-left: auto;
+            margin-right: auto
+        }
+
+        .cs-text_right {
+            text-align: right
+        }
+
+        .cs-border_top_0 {
+            border-top: 0
+        }
+
+        .cs-border_top {
+            border-top: 1px solid #eaeaea
+        }
+
+        .cs-border_left {
+            border-left: 1px solid #eaeaea
+        }
+
+        .cs-round_border {
+            border: 1px solid #eaeaea;
+            overflow: hidden;
+            border-radius: 6px
+        }
+
+        .cs-border_none {
+            border: none
+        }
+
+        .cs-invoice.cs-style1 {
+            background: #fff;
+            border-radius: 10px;
+            padding: 50px
+        }
+
+        .cs-invoice.cs-style1 .cs-invoice_head {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+            justify-content: space-between
+        }
+
+        .cs-invoice.cs-style1 .cs-invoice_head.cs-type1 {
+            -webkit-box-align: end;
+            -ms-flex-align: end;
+            align-items: flex-end;
+            padding-bottom: 25px;
+            border-bottom: 1px solid #eaeaea
+        }
+
+        .cs-invoice.cs-style1 .cs-invoice_footer {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex
+        }
+
+        .cs-invoice.cs-style1 .cs-invoice_footer table {
+            margin-top: -1px
+        }
+
+        .cs-invoice.cs-style1 .cs-left_footer {
+            width: 55%;
+            padding: 10px 15px
+        }
+
+        .cs-invoice.cs-style1 .cs-right_footer {
+            width: 46%
+        }
+
+        .cs-invoice.cs-style1 .cs-note {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: start;
+            -ms-flex-align: start;
+            align-items: flex-start;
+            margin-top: 40px
+        }
+
+        .cs-invoice.cs-style1 .cs-note_left {
+            margin-right: 10px;
+            margin-top: 6px;
+            margin-left: -5px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex
+        }
+
+        .cs-invoice.cs-style1 .cs-note_left svg {
+            width: 32px
+        }
+
+        .cs-invoice.cs-style1 .cs-invoice_left {
+            max-width: 55%
+        }
+
+        .cs-invoice_btns {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            margin-top: 30px
+        }
+
+        .cs-invoice_btns .cs-invoice_btn:first-child {
+            border-radius: 5px 0 0 5px
+        }
+
+        .cs-invoice_btns .cs-invoice_btn:last-child {
+            border-radius: 0 5px 5px 0
+        }
+
+        .cs-invoice_btn {
+            display: -webkit-inline-box;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            border: none;
+            font-weight: 600;
+            padding: 8px 20px;
+            cursor: pointer
+        }
+
+        .cs-invoice_btn svg {
+            width: 24px;
+            margin-right: 5px
+        }
+
+        .cs-invoice_btn.cs-color1 {
+            color: #111;
+            background: rgba(42, 209, 157, .15)
+        }
+
+        .cs-invoice_btn.cs-color1:hover {
+            background-color: rgba(42, 209, 157, .3)
+        }
+
+        .cs-invoice_btn.cs-color2 {
+            color: #fff;
+            background: #2ad19d
+        }
+
+        .cs-invoice_btn.cs-color2:hover {
+            background-color: rgba(42, 209, 157, .8)
+        }
+
+        .cs-table_responsive {
+            overflow-x: auto
+        }
+
+        .cs-table_responsive>table {
+            min-width: 600px
+        }
+
+        .cs-bar_list li:not(:last-child) {
+            margin-bottom: 10px
+        }
+
+        .cs-table.cs-style2 tr:not(:first-child) {
+            border-top: 1px dashed #eaeaea
+        }
+
+        .cs-list.cs-style1 li:not(:last-child) {
+            border-bottom: 1px dashed #eaeaea
+        }
+
+        .cs-table.cs-style1 .cs-table.cs-style1 tr:not(:first-child) td {
+            border-color: #eaeaea
+        }
+
+        @media (max-width:767px) {
+            .cs-mobile_hide {
+                display: none
+            }
+
+            .cs-invoice.cs-style1 {
+                padding: 30px 20px
+            }
+
+            .cs-invoice.cs-style1 .cs-right_footer {
+                width: 100%
+            }
+        }
+
+        @media (max-width:500px) {
+            .cs-invoice.cs-style1 .cs-logo {
+                margin-bottom: 10px
+            }
+
+            .cs-invoice.cs-style1 .cs-invoice_head {
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: normal;
+                -ms-flex-direction: column;
+                flex-direction: column
+            }
+
+            .cs-invoice.cs-style1 .cs-invoice_head.cs-type1 {
+                -webkit-box-orient: vertical;
+                -webkit-box-direction: reverse;
+                -ms-flex-direction: column-reverse;
+                flex-direction: column-reverse;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                text-align: center
+            }
+
+            .cs-invoice.cs-style1 .cs-invoice_head .cs-invoice.cs-style1 .cs-invoice_left {
+                max-width: 100%
+            }
+        }
+
+        .badge-unpaid {
+            background-color: red;
+            color: white;
+            padding: 4px 8px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .badge-paid {
+            background-color: #8dbf42 !important;
+            color: white;
+            padding: 4px 8px;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .custom-button {
+            width: 100%;
+            display: inline-block;
+            background-color: #333;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .custom-button:hover {
+            background-color: #555;
+            transform: translateY(-2px);
+        }
+
+        .custom-button:active {
+            background-color: #222;
+            transform: translateY(0);
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="cs-container">
+        <div class="cs-invoice cs-style1">
+            <div class="cs-invoice_in" id="download_section">
+                <div class="cs-invoice_head cs-type1 cs-mb25">
+                    <div class="cs-invoice_left">
+                        <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16">Invoice From<b
+                                class="cs-primary_color">
+                                {{ $payment->brand->name }}</b></p><br>
+                        <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16"><b class="cs-primary_color">Invoice
+                                No:</b> #{{ $payment->invoice_number }}</p>
+                        <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16"><b class="cs-primary_color">Date:
+                            </b>{{ $payment->created_at->format('d-m-y') }}</p>
+                        @php
+                            $inv_status = strtolower($payment->status) === 'paid' ? 'paid' : 'unpaid';
+                        @endphp
+
+                        <p class="cs-invoice_number cs-primary_color cs-mb5 cs-f16">
+                            <b class="cs-primary_color">Status:</b>
+                            <span
+                                class="{{ $inv_status == 'paid' ? 'badge-paid' : 'badge-unpaid' }}">{{ $payment->status }}</span>
+                        </p>
+                    </div>
+                    <div class="cs-invoice_right cs-text_right">
+                        <div class="cs-logo cs-mb5">
+                            <a href="{{ url('') }}">
+                                <img src="{{ asset('storage/' . $payment->brand->logo_path) }}" alt="Logo"></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="doc-container">
-                    <div class="tab-title d-none">
-                        <div class="row">
-                            <div class="col-md-12 col-sm-12 col-12">
-                                <div class="search">
-                                    <input type="text" class="form-control" placeholder="Search">
-                                </div>
-                                <ul class="nav nav-pills inv-list-container d-block ps ps--active-y" id="pills-tab" role="tablist">
-                                    <li class="nav-item" >
-                                        <div class="nav-link list-actions active" id="invoice-00001" data-invoice-id="00001">
-                                            <div class="f-m-body">
-                                                <div class="f-head">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                                                </div>
-                                                <div class="f-body">
-                                                    <p class="invoice-number">Invoice #00001</p>
-                                                    <p class="invoice-customer-name"><span>To:</span> Jesse Cory</p>
-                                                    <p class="invoice-generated-date">Date: 12 Apr 2019</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 337px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 76px;"></div></div></ul>
+
+                <div class="cs-invoice_head cs-mb10">
+
+                    <div class="cs-invoice_left">
+
+                        <b class="cs-primary_color">Invoice To:</b>
+
+                        <p>Name: {{ $payment->customer->first_name }} {{ $payment->customer->last_name }}<br>
+                            Email: {{ $payment->customer->email }}<br>
+                            Phone Number: {{ $payment->customer->phone_number }}<br>
+                        </p>
+                    </div>
+                    <div style="padding-left:245px;">
+                        <b class="cs-primary_color">Pay To:</b>
+                        <p>{{ $payment->brand->name }}
+                        </p>
+                    </div>
+                </div>
+                <div class="cs-table cs-style1">
+                    <div class="cs-round_border">
+                        <div class="cs-table_responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Package Name
+                                        </th>
+                                        <th class="cs-width_4 cs-semi_bold cs-primary_color cs-focus_bg">Package
+                                            Description</th>
+                                        <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg">Qty</th>
+                                        <th class="cs-width_1 cs-semi_bold cs-primary_color cs-focus_bg">Price</th>
+                                        <th class="cs-width_2 cs-semi_bold cs-primary_color cs-focus_bg cs-text_right">
+                                            Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="cs-width_3">{{ $payment->package_name }}</td>
+                                        <td class="cs-width_4">{{ $payment->description }}</td>
+                                        <td class="cs-width_2">1</td>
+                                        <td class="cs-width_1"> {{ $payment->currency == 'usd' ? '$' : '' }}
+                                            {{ $payment->currency == 'gbp' ? '£' : '' }}
+                                            {{ $payment->price }}
+                                        </td>
+                                        <td class="cs-width_2 cs-text_right">
+                                            {{ $payment->currency == 'usd' ? '$' : '' }}
+                                            {{ $payment->currency == 'gbp' ? '£' : '' }}
+                                            {{ $payment->price }}
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cs-invoice_footer cs-border_top">
+                            <div class="cs-left_footer">
+
+                            </div>
+                            <div class="cs-right_footer">
+                                <table>
+                                    <tbody>
+                                        <tr class="cs-border_left">
+                                            <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Subtotal
+                                            </td>
+                                            <td
+                                                class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
+                                                {{ $payment->currency == 'usd' ? '$' : '' }}
+                                                {{ $payment->currency == 'gbp' ? '£' : '' }}
+                                                {{ $payment->price }}
+                                            </td>
+                                        </tr>
+                                        <tr class="cs-border_left">
+                                            <td class="cs-width_3 cs-semi_bold cs-primary_color cs-focus_bg">Tax</td>
+                                            <td
+                                                class="cs-width_3 cs-semi_bold cs-focus_bg cs-primary_color cs-text_right">
+                                                {{ $payment->currency == 'usd' ? '$' : '' }}
+                                                {{ $payment->currency == 'gbp' ? '£' : '' }}
+                                                {{ $payment->tax }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-
-                    <div class="invoice-container">
-                        <div class="invoice-inbox ps ps--active-y" style="height: calc(-215px + 100vh);">
-
-                            <div class="inv-not-selected" style="display: none;">
-                                <p>Open an invoice from the list.</p>
-                            </div>
-
-                            <div class="invoice-header-section" style="display: flex;">
-                                <h4 class="inv-number">#00001</h4>
-                                <div class="invoice-action">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-printer action-print" data-toggle="tooltip" data-placement="top" data-original-title="Reply"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-                                </div>
-                            </div>
-                            
-                            <div id="ct" class="" style="display: block;">
-                                
-                                <div class="invoice-00001">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg> --}}
-                                                    <img src="{{ asset('storage/'.$payment->brand->logo_path) }}" alt="Logo">
-
-
-                                                    {{-- <h5 class="inv-brand-name">CORK</h5> --}}
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : {{$payment->brand->name}}</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">{{$payment->customer->first_name}} {{$payment->customer->last_name}}</p>
-                                                <p class="inv-email-address">{{$payment->customer->email}}</p>
-                                                <p class="inv-street-addr">{{$payment->customer->address_line_1}}</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#{{$payment->invoice_number}}</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">{{$payment->created_at->format('d-m-y')}}</span></p>
-                                                {{-- <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p> --}}
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">Package Name</th>
-                                                                <th class="text-right" scope="col">Package Description</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Price</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>{{$payment->package_name}}</td>
-                                                                <td class="text-right">{{$payment->description}}</td>
-                                                                <td class="text-right">1</td>
-                                                                <td class="text-right">
-                                                                    {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                    {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                    {{$payment->price}}
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    {{-- <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div> --}}
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">
-                                                                {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                {{$payment->price}}
-                                                            </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">
-                                                                {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                {{$payment->tax}}
-                                                            </p>
-                                                        </div>
-                                                        {{-- <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div> --}}
-                                                        {{-- <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div> --}}
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">
-                                                                {{$payment->currency == 'usd' ? '$' : ''}}
-                                                                {{$payment->currency == 'gbp' ? '£' : ''}}
-                                                                {{$payment->price + $payment->tax}}
-                                                            </h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div> 
-
-                                <div class="invoice-00002" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Linda Nelson</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00003" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Andy King</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00004" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Luke Ivory</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00005" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Susan Phillips</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00006" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Thomas Granger</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00007" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Donna Rogers</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00008" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Angie Lamb</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00009" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Mary Mcdonald</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00010" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Thomas Granger</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00011" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Sonia Shaw</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00012" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Laurie Fox</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00013" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Ryan McKillop</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00014" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Jimmy Turner</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div class="invoice-00015" style="display: none;">
-                                    <div class="content-section  animated animatedFadeInUp fadeInUp">
-
-                                        <div class="row inv--head-section">
-
-                                            <div class="col-sm-6 col-12">
-                                                <h3 class="in-heading">INVOICE</h3>
-                                            </div>
-                                            <div class="col-sm-6 col-12 align-self-center text-sm-right">
-                                                <div class="company-info">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hexagon"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
-                                                    <h5 class="inv-brand-name">CORK</h5>
-                                                </div>
-                                            </div>
-                                            
-                                        </div>
-
-                                        <div class="row inv--detail-section">
-
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-to">Invoice To</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-sm-0 order-1">
-                                                <p class="inv-detail-title">From : XYZ Company</p>
-                                            </div>
-                                            
-                                            <div class="col-sm-7 align-self-center">
-                                                <p class="inv-customer-name">Roxanne</p>
-                                                <p class="inv-street-addr">405 Mulberry Rd. Mc Grady, NC, 28649</p>
-                                                <p class="inv-email-address">redq@company.com</p>
-                                            </div>
-                                            <div class="col-sm-5 align-self-center  text-sm-right order-2">
-                                                <p class="inv-list-number"><span class="inv-title">Invoice Number : </span> <span class="inv-number">#00001</span></p>
-                                                <p class="inv-created-date"><span class="inv-title">Invoice Date : </span> <span class="inv-date">20 Aug 2019</span></p>
-                                                <p class="inv-due-date"><span class="inv-title">Due Date : </span> <span class="inv-date">26 Aug 2019</span></p>
-                                            </div>
-                                        </div>
-
-                                        <div class="row inv--product-table-section">
-                                            <div class="col-12">
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead class="">
-                                                            <tr>
-                                                                <th scope="col">S.No</th>
-                                                                <th scope="col">Items</th>
-                                                                <th class="text-right" scope="col">Qty</th>
-                                                                <th class="text-right" scope="col">Unit Price</th>
-                                                                <th class="text-right" scope="col">Amount</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>1</td>
-                                                                <td>Electric Shaver</td>
-                                                                <td class="text-right">20</td>
-                                                                <td class="text-right">$300</td>
-                                                                <td class="text-right">$2800</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>2</td>
-                                                                <td>Earphones</td>
-                                                                <td class="text-right">49</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$7000</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>3</td>
-                                                                <td>Wireless Router</td>
-                                                                <td class="text-right">30</td>
-                                                                <td class="text-right">$500</td>
-                                                                <td class="text-right">$3500</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row mt-4">
-                                            <div class="col-sm-5 col-12 order-sm-0 order-1">
-                                                <div class="inv--payment-info">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 col-12">
-                                                            <h6 class=" inv-title">Payment Info:</h6>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Bank Name: </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">Bank of America</p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-12">
-                                                            <p class=" inv-subtitle">Account Number : </p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-12">
-                                                            <p class="">1234567890</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-7 col-12 order-sm-1 order-0">
-                                                <div class="inv--total-amounts text-sm-right">
-                                                    <div class="row">
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Sub Total: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$13300</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class="">Tax Amount: </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7">
-                                                            <p class=" discount-rate">Discount : <span class="discount-percentage">5%</span> </p>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5">
-                                                            <p class="">$700</p>
-                                                        </div>
-                                                        <div class="col-sm-8 col-7 grand-total-title">
-                                                            <h4 class="">Grand Total : </h4>
-                                                        </div>
-                                                        <div class="col-sm-4 col-5 grand-total-amount">
-                                                            <h4 class="">$14000</h4>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px; height: 214px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 60px;"></div></div><div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px; height: 214px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 60px;"></div></div></div>
-
-                        <div class="inv--thankYou" style="display: block;">
-                            <div class="row">
-                                <div class="col-sm-12 col-12">
-                                    <p class="">Thank you for doing Business with us.</p>
-                                </div>
-                            </div>
+                    <div class="cs-invoice_footer">
+                        <div class="cs-left_footer"></div>
+                        <div class="cs-right_footer">
+                            <table>
+                                <tbody>
+                                    <tr class="cs-border_none">
+                                        <td class="cs-width_3 cs-border_top_0 cs-bold cs-f16 cs-primary_color">Total
+                                        </td>
+                                        <td
+                                            class="cs-width_3 cs-border_top_0 cs-bold cs-f16 cs-primary_color cs-text_right">
+                                            {{ $payment->currency == 'usd' ? '$' : '' }}
+                                            {{ $payment->currency == 'gbp' ? '£' : '' }}
+                                            {{ $payment->price + $payment->tax }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-
                     </div>
-                    
                 </div>
 
             </div>
+
         </div>
-        </div>
-@endsection
+        @if ($inv_status == 'unpaid' && $payment->gateway->name !== 'paypal')
+            <div>
+                <a href="{{ url('/pay/' . $payment->invoice_number) }}" class="custom-button">Proceed</a>
+            </div>
+        @endif
+    </div>
+
+
+</body>
+
+</html>

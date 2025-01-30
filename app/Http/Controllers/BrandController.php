@@ -5,11 +5,15 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BrandController extends Controller
 {
     public function index()
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $brands = Brand::all();
 
         return view('brand.index',['brands' => $brands]);
@@ -17,6 +21,9 @@ class BrandController extends Controller
 
     public function store(Request $request)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $validator = Validator::make($request->all(), Brand::$rules);
     
         if ($validator->fails()) {
@@ -46,10 +53,16 @@ class BrandController extends Controller
 
 
     public function create(){
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         return view('brand.create');
     }
 
     public function edit($id){
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $brand = Brand::find($id);
 
         return view('brand.edit',['brand' => $brand]);
@@ -57,11 +70,18 @@ class BrandController extends Controller
 
     public function show(Brand $brand)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         return $brand;
     }
 
     public function update(Request $request, Brand $brand)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
+
         $validator = Validator::make($request->all(), Brand::$rules);
     
         if ($validator->fails()) {
@@ -90,6 +110,9 @@ class BrandController extends Controller
 
     public function destroy(Brand $brand)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403, 'You do not have permission to perform this action.');
+        }
         $brand->delete();
         return back()->with('message','Brand deleted successfully');
     }

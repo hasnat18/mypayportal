@@ -46,15 +46,19 @@ class Payment extends Model
     ];
 
     public static $rules = [
-        'customer_id' => 'required',
-        'gateway_id' => 'required',
-        'brand_id' => 'required',
-        'invoice_number' => 'required',
-        'package_name' => 'required',
-        'description' => 'required',
-        'price' => 'required',
-        'currency' => 'required',
-        'tax' => 'required',
-        'remaining' => 'required',
+        'customer_type' => 'required|in:0,1', // 0 = Existing Customer, 1 = New Customer
+        'customer_id' => 'required_if:customer_type,0|exists:customers,id',
+        'first_name' => 'nullable|string|max:255',
+        'last_name' => 'nullable|nullable|string|max:255', // Always nullable
+        'email' => 'nullable|nullable|email|max:255', // Always nullable
+        'phone' => 'nullable|nullable|string|max:20', // Always nullable
+        'gateway_id' => 'required|exists:gateways,id',
+        'brand_id' => 'required|exists:brands,id',
+        'package_name' => 'required|string|max:255',
+        'description' => 'nullable|string|max:255',
+        'currency' => 'required|in:usd,gbp',
+        'price' => 'required|numeric|min:0',
+        'tax' => 'nullable|numeric|min:0',
+        'remaining' => 'nullable|numeric|min:0',
     ];
 }

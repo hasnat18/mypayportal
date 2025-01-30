@@ -27,7 +27,7 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for="name">Redirect Url</label>
-                                        <input value="{{$brand->redirect_url}}" type="text" class="form-control" id="redirect_url" name="nredirect_urlame" placeholder="Redirect Url">
+                                        <input value="{{$brand->redirect_url}}" type="text" class="form-control" id="redirect_url" name="redirect_url" placeholder="Redirect Url">
                                         <span class="text-danger error-message" id="redirect_url_error"></span>
                                     </div>
                                 </div>
@@ -58,32 +58,37 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         $('#updateBtn').click(function() {
             var brandId = $('#brand_id').val(); // Get brand ID from hidden field
-            console.log(brandId)
+            var formData = new FormData($("#editBrandForm")[0]); // Convert form to FormData
+
             $.ajax({
-                type: 'PUT', // Use PUT method for update
-                url: '/brands/' + brandId, // Update the URL to include brand ID
-                data: $('#editBrandForm').serialize(),
+                type: 'POST', // Laravel requires POST for file uploads even during updates
+                url: '/brands/' + brandId + '?_method=PUT', // Simulate PUT request using query param
+                data: formData,
+                processData: false, // Prevent jQuery from processing data
+                contentType: false, // Prevent jQuery from setting contentType
                 success: function(response) {
-                    // Show Snackbar notification
                     Snackbar.show({
                         text: 'Brand updated successfully.',
-                        duration: 5000, // 5 seconds
+                        duration: 5000 // 5 seconds
                     });
                 },
                 error: function(xhr, status, error) {
-                    var err = JSON.parse(xhr.responseText);
-                    console.log('Error:', err);
-
-                    // Display validation errors
-                    $.each(err.errors, function(key, value) {
-                        $('#' + key + '_error').text(value);
-                    });
+                    try {
+                        var err = JSON.parse(xhr.responseText);
+                        // Display validation errors
+                        $.each(err.errors, function(key, value) {
+                            $('#' + key + '_error').text(value);
+                        });
+                    } catch (e) {
+                        console.error("Unexpected Error: ", e);
+                    }
                 }
             });
         });
     });
 </script>
+
 @endsection
